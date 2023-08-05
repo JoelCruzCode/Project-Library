@@ -23,6 +23,10 @@ a {
   border: 1px solid red;
 }
 
+.hidden {
+  display: none;
+}
+
 .header {
   grid-area: 1 / 1 / 2 / 4;
   display: flex;

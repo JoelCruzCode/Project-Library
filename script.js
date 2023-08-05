@@ -2,11 +2,19 @@
 
 const library = document.querySelector("table");
 const display = document.querySelector(".display");
-console.log(library);
-console.log(display);
+const form = document.querySelector(".form");
+const addBtn = document.querySelector(".add");
+const cancelBtn = document.querySelector(".cancel");
+const submitBtn = document.querySelector(".submit");
+const formInputs = [...document.querySelectorAll("input")];
 
+let title;
+let author;
+let pages;
+let read;
 let myLibrary = [];
 
+// Constructor
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -29,6 +37,15 @@ function addBookToLibrary(book) {
 
 function displayBooks(lib) {
   //   lib.forEach((book) => console.log(book));
+  library.innerHTML = `
+  <thead>
+    <tr>
+      <th class="title">Title</th>
+      <th class="author">Author</th>
+      <th class="pages">Pages</th>
+      <th class="read">Read</th>
+    </tr>
+  </thead>`;
   lib.forEach((book) =>
     library.insertAdjacentHTML(
       "beforeend",
@@ -53,3 +70,32 @@ addBookToLibrary(book1);
 addBookToLibrary(book2);
 
 displayBooks(myLibrary);
+
+// event listeners
+addBtn.addEventListener("click", function (e) {
+  form.classList.toggle("hidden");
+});
+
+submitBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  //   title = formInputs[0].value;
+  //   author = formInputs[1].value;
+  //   pages = formInputs[2].value;
+  //   read = formInputs[3].value;
+
+  //   const book = new Book(title, author, pages, read);
+  //   addBookToLibrary(book);
+  //   displayBooks(myLibrary);
+  addBookToLibrary2();
+});
+
+function addBookToLibrary2() {
+  title = formInputs[0].value;
+  author = formInputs[1].value;
+  pages = formInputs[2].value;
+  read = formInputs[3].value;
+
+  const book = new Book(title, author, pages, read);
+  myLibrary.push(book);
+  displayBooks(myLibrary);
+}
