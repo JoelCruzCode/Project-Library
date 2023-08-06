@@ -56,15 +56,19 @@
           <div class="form-row">
             <fieldset>
               <legend>Have you read this book?</legend>
-              <label for="read">Yes</label>
-              <input type="radio" id="read" name="read" value="true" />
-              <label for="read">No</label
-              ><input type="radio" id="read" name="read" value="false" />
+              <div>
+                <input type="radio" id="read" name="read" value="true" />
+                <label for="read">Yes</label>
+              </div>
+              <div>
+                <input type="radio" id="unread" name="read2" value="false" />
+                <label for="unread">No</label>
+              </div>
             </fieldset>
           </div>
-          <button class="submit">Submit</button>
+          <button type="submit" class="submit">Submit</button>
           <button type="reset">Reset</button>
-          <button type="button">Cancel</button>
+          <button type="button" class="cancel">Cancel</button>
         </form>
       </div>
       <button class="add">New Book</button>

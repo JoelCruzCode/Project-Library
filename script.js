@@ -1,5 +1,6 @@
 "use strict";
 
+// Dom Elements
 const library = document.querySelector("#library");
 const display = document.querySelector(".display");
 const form = document.querySelector(".form");
@@ -37,18 +38,6 @@ Book.prototype.toggleReadStatus = function () {
   console.log(`Read status for "${this.title}" changed to "${this.read}"`);
 };
 
-function addBookToLibrary() {
-  title = formInputs[0].value;
-  author = formInputs[1].value;
-  pages = formInputs[2].value;
-  read = formInputs[3].value;
-
-  const book = new Book(title, author, pages, read);
-  myLibrary.push(book);
-  displayBooks(myLibrary);
-  console.log(myLibrary);
-}
-
 function displayBooks(lib) {
   library.innerHTML = `
   <thead>
@@ -75,10 +64,26 @@ function displayBooks(lib) {
   );
 }
 
+function addBookToLibrary() {
+  title = formInputs[0].value;
+  author = formInputs[1].value;
+  pages = formInputs[2].value;
+  read = formInputs[3].checked ? true : false;
+
+  const book = new Book(title, author, pages, read);
+  myLibrary.push(book);
+  displayBooks(myLibrary);
+  console.log(myLibrary);
+}
+
 displayBooks(myLibrary);
-console.log(myLibrary);
+
 // event listeners
 addBtn.addEventListener("click", function (e) {
+  form.classList.toggle("hidden");
+});
+
+cancelBtn.addEventListener("click", function () {
   form.classList.toggle("hidden");
 });
 
