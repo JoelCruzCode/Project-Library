@@ -1,6 +1,6 @@
 "use strict";
 
-const library = document.querySelector("table");
+const library = document.querySelector("#library");
 const display = document.querySelector(".display");
 const form = document.querySelector(".form");
 const addBtn = document.querySelector(".add");
@@ -12,7 +12,8 @@ let title;
 let author;
 let pages;
 let read;
-let myLibrary = [];
+let book1 = new Book("JS for dummies", "John smith", 200, false);
+let myLibrary = [book1];
 
 // Constructor
 function Book(title, author, pages, read) {
@@ -31,12 +32,24 @@ Book.prototype.describe = function () {
   );
 };
 
-function addBookToLibrary(book) {
+Book.prototype.toggleReadStatus = function () {
+  this.read === true ? (this.read = false) : (this.read = true);
+  console.log(`Read status for "${this.title}" changed to "${this.read}"`);
+};
+
+function addBookToLibrary() {
+  title = formInputs[0].value;
+  author = formInputs[1].value;
+  pages = formInputs[2].value;
+  read = formInputs[3].value;
+
+  const book = new Book(title, author, pages, read);
   myLibrary.push(book);
+  displayBooks(myLibrary);
+  console.log(myLibrary);
 }
 
 function displayBooks(lib) {
-  //   lib.forEach((book) => console.log(book));
   library.innerHTML = `
   <thead>
     <tr>
@@ -50,27 +63,20 @@ function displayBooks(lib) {
     library.insertAdjacentHTML(
       "beforeend",
       `
-    <tr>
+    <tr data-index="${myLibrary.indexOf(book)}">
         <td> ${book.title} </td>
         <td> ${book.author} </td>
         <td> ${book.pages} </td>
         <td> ${book.read} </td>
+        <td> <button class='delete'>Delete </button> </td>
+        <td> <button class='toggle-read'>Mark as Read </button> </td>
     <tr>`
     )
   );
 }
 
-const book1 = new Book("JS for dummies", "jones", 123, true);
-console.log(book1.description());
-book1.describe();
-
-const book2 = new Book("Python made easy", "jake", 400, false);
-
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-
 displayBooks(myLibrary);
-
+console.log(myLibrary);
 // event listeners
 addBtn.addEventListener("click", function (e) {
   form.classList.toggle("hidden");
@@ -78,24 +84,24 @@ addBtn.addEventListener("click", function (e) {
 
 submitBtn.addEventListener("click", function (e) {
   e.preventDefault();
-  //   title = formInputs[0].value;
-  //   author = formInputs[1].value;
-  //   pages = formInputs[2].value;
-  //   read = formInputs[3].value;
 
-  //   const book = new Book(title, author, pages, read);
-  //   addBookToLibrary(book);
-  //   displayBooks(myLibrary);
-  addBookToLibrary2();
+  addBookToLibrary();
 });
 
-function addBookToLibrary2() {
-  title = formInputs[0].value;
-  author = formInputs[1].value;
-  pages = formInputs[2].value;
-  read = formInputs[3].value;
+library.addEventListener("click", function (e) {
+  let deleteBtn = e.target.closest(".delete");
+  let readBtn = e.target.closest(".toggle-read");
+  let row = e.target.closest("tr");
+  let index = Number(row.getAttribute("data-index"));
 
-  const book = new Book(title, author, pages, read);
-  myLibrary.push(book);
-  displayBooks(myLibrary);
-}
+  if (deleteBtn) {
+    myLibrary.splice(index, 1);
+    displayBooks(myLibrary);
+  }
+
+  if (readBtn) {
+    let selectedBook = myLibrary[index];
+    selectedBook.toggleReadStatus();
+    displayBooks(myLibrary);
+  }
+});

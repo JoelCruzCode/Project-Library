@@ -54,13 +54,13 @@
             />
           </div>
           <div class="form-row">
-            <label for="read"></label
-            ><input
-              type="text"
-              id="read"
-              name="read"
-              placeholder="Have you read this book?"
-            />
+            <fieldset>
+              <legend>Have you read this book?</legend>
+              <label for="read">Yes</label>
+              <input type="radio" id="read" name="read" value="true" />
+              <label for="read">No</label
+              ><input type="radio" id="read" name="read" value="false" />
+            </fieldset>
           </div>
           <button class="submit">Submit</button>
           <button type="reset">Reset</button>
@@ -68,7 +68,7 @@
         </form>
       </div>
       <button class="add">New Book</button>
-      <table id="libary">
+      <table id="library">
         <thead>
           <tr>
             <th class="title">Title</th>
