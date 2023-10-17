@@ -20,6 +20,11 @@ function displayError(input, span, message) {
   span.textContent = message;
 }
 
+function clearError(span) {
+  span.textContent = "";
+  span.classList.remove("active");
+}
+
 function showEmailError() {
   if (email.validity.valueMissing) {
     // If the field is empty,
@@ -56,6 +61,7 @@ function showCountryError() {
 
 function showZipCodeError() {
   const zipCodeInput = parseInt(zipCode.value, 10);
+
   if (zipCode.validity.valueMissing) {
     zipCodeError.textContent = "You need to enter a 5 digit zip code";
   } else if (zipCode.validity.tooShort || zipCode.validity.tooLong) {
@@ -99,34 +105,24 @@ function showConfirmationError() {
   const pass = password.value;
   const confirm = confirmation.value;
   let message = ``;
+
   if (confirm.length < 8) {
     message = `Your Password length must have a minimum of 8 characters, you currently have ${confirm.length}`;
-    // confirmation.setCustomValidity(message);
-    // confirmationError.textContent = message;
-    displayError(confirmation, confirmationError, message);
-    // confirmationError.textContent = `Your Password length must have a minimum of 8 characters, you currently have ${password.value.length}`;
   } else if (confirm.length > 32) {
     message = `Your password length cannot be longer than 32 characters, you currently have ${confirm.length} characters`;
-    displayError(confirmation, confirmationError, message);
-    // confirmationError.textContent = `Your password length cannot be longer than 32 characters, you currently have ${password.value.length} characters`;
   } else if (!isPasswordValid(confirm)) {
     message = `Your password must contain atleast 1 uppercase, 1 lowercase and 1 number`;
-    displayError(confirmation, confirmationError, message);
-    // confirmationError.textContent = `Your password must contain atleast 1 uppercase, 1 lowercase and 1 number`;
   } else if (confirm != pass) {
     message =
       "Your confirmation must be identical to your password input, please double check your inputs.";
-    displayError(confirmation, confirmationError, message);
   } else {
+    message = ``;
     confirmation.setCustomValidity("");
   }
-  // text
-  //   confirmation.reportValidity();
-}
-
-function clearError(inputError) {
-  inputError.textContent = "";
-  inputError.classList.remove("active");
+  if (message) {
+    // Should i make this a higher level object and use destructuring for cleaner code?
+    displayError(confirmation, confirmationError, message);
+  }
 }
 
 // Event Listeners
@@ -165,15 +161,8 @@ password.addEventListener("input", function (e) {
 confirmation.addEventListener("input", function (e) {
   showConfirmationError();
   if (confirmation.validity.valid) {
-    confirmation.setCustomValidity("");
     clearError(confirmationError);
   }
-  //
-  //   if (confirmation.validity.valid) {
-  //     clearError(confirmationError);
-  //   } else {
-  //     showConfirmationError();
-  //   }
 });
 
 form.addEventListener("submit", function (e) {
@@ -187,6 +176,12 @@ form.addEventListener("submit", function (e) {
     }
     if (!zipCode.validity.valid) {
       showZipCodeError();
+    }
+    if (!password.validity.valid) {
+      showPasswordError();
+    }
+    if (!confirmation.validity.valid) {
+      showConfirmationError();
     }
   }
 });
