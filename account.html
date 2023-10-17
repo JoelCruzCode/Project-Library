@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script src="account.js" defer></script>
+    <div id="account-form">
+      <form novalidate>
+        <div class="account-row">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="user_email"
+            placeholder="example@gmail.com"
+            required
+            minlength="8"
+          />
+          <span class="error" aria-live="polite"></span>
+        </div>
+        <div class="account-row">
+          <label for="country">Country:</label>
+          <input
+            type="text"
+            id="country"
+            required
+            name="user_country"
+            minlength="4"
+            maxlength="56"
+            placeholder=""
+          />
+          <span class="error" aria-live="polite"></span>
+        </div>
+        <div class="account-row">
+          <label for="zipcode">Zip Code:</label>
+          <input
+            type="text"
+            id="zipcode"
+            name="user_zipCode"
+            placeholder="Enter a 5 Digit Zip Code"
+            required
+            minlength="5"
+            maxlength="5"
+            pattern="[0-9]{5}"
+          />
+          <span class="error" aria-live="polite"></span>
+        </div>
+        <div class="account-row">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="user_password"
+            minlength="8"
+            maxlength="34"
+          />
+          <span class="error" aria-live="polite"></span>
+        </div>
+        <div class="account-row">
+          <label for="confirmation">Confirmation:</label>
+          <input type="password" id="confirmation" name="user_confirmation" />
+          <span class="error" aria-live="polite"></span>
+        </div>
+        <button class="account-form-btn">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
