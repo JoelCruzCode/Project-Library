@@ -95,3 +95,65 @@ td {
 th {
   width: 300px;
 }
+
+#account-form {
+  display: flex;
+}
+
+.account-row {
+  display: flex;
+  flex-direction: column;
+  /* gap: 1rem; */
+}
+
+input[type="email"] {
+  appearance: none;
+
+  width: 100%;
+  border: 1px solid #333;
+  margin: 0;
+
+  font-family: inherit;
+  font-size: 90%;
+
+  box-sizing: border-box;
+}
+
+/* This is our style for the invalid fields */
+input:invalid {
+  border-color: #900;
+  background-color: #fdd;
+}
+
+input:focus:invalid {
+  outline: none;
+}
+
+/* This is our style for valid fields */
+input:valid {
+  border-color: #05a305;
+  background-color: #c1e6c1;
+}
+
+/* input:focus:valid {
+  border-color: none;
+  background-color: white;
+  outline: none;
+} */
+
+/* This is the style of our error messages */
+.error {
+  width: 100%;
+  padding: 0;
+
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
+
+  box-sizing: border-box;
+}
+
+.error.active {
+  padding: 0.3em;
+}
